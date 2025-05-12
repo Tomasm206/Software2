@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.4</version>
+		<version>3.4.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.uco.softwarII</groupId>
@@ -40,15 +40,25 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+		
 		<dependency>
 			<groupId>org.springframework.graphql</groupId>
 			<artifactId>spring-graphql-test</artifactId>
-			<scope>test</scope>
+		</dependency>
+		<dependency>
+        	<groupId>jakarta.persistence</groupId>
+        	<artifactId>jakarta.persistence-api</artifactId>
+    	</dependency>
+
+		<dependency>
+			<groupId>com.gestion.empleados</groupId>
+			<artifactId>mini-control-empleados</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -58,6 +68,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				  <groupId>org.sonarsource.scanner.maven</groupId>
+				  <artifactId>sonar-maven-plugin</artifactId>
+				  <version>3.9.1.2184</version>
+   			 </plugin>
 		</plugins>
 	</build>
 
