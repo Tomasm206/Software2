@@ -1,5 +1,5 @@
 package com.example.aplication.interactor;
 
-public interface InteractorConRespuesta<I,O> {
+public interface InteractorConRetorno<I,O> {
 	O ejecutar (I dto);
 }
