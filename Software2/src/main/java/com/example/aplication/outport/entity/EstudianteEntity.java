@@ -2,6 +2,8 @@ package com.example.aplication.outport.entity;
 
 import java.util.UUID;
 
+import com.example.crosscutting.helpers.UUIDHelper;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +13,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "TipoIdentificacion")
+@Table(name = "Estudiante")
 public class EstudianteEntity {
 	
 	@Id
@@ -32,7 +34,7 @@ public class EstudianteEntity {
 	private void setDefaultId() {
 	    // TODO: Obtener valor por defecto
 	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
-	    UUID defaultValue = null;
+	    UUID defaultValue = UUIDHelper.generate();
 	    setId(defaultValue);
 	}
 
@@ -48,7 +50,7 @@ public class EstudianteEntity {
 	private void setDefaultClave() {
 		// TODO: Obtener valor por defecto
 		// Lo más probable es que este valor esté en algún lugar o algún parámetro
-		var defaultValue = "";
+		var defaultValue = "N/A";
 		setClave(defaultValue);
 	}
 	
