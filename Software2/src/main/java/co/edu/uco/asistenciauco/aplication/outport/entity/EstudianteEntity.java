@@ -1,0 +1,90 @@
+package co.edu.uco.asistenciauco.aplication.outport.entity;
+
+import java.util.UUID;
+
+import co.edu.uco.asistenciauco.crosscutting.helpers.UUIDHelper;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+
+
+@Entity
+@Table(name = "Estudiante")
+public class EstudianteEntity {
+	
+	@Id
+	@Column(name = "id")
+	private UUID id;
+	@Column(name = "clave")
+	private String clave;
+	@Column(name = "nombre")
+	private String nombre;
+	
+	public UUID getId() {
+		return id;
+	}
+	public void setId(final UUID id) {
+		this.id = id;
+	}
+	
+	private void setDefaultId() {
+	    // TODO: Obtener valor por defecto
+	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
+	    UUID defaultValue = UUIDHelper.generate();
+	    setId(defaultValue);
+	}
+
+	
+	public String getClave() {
+		return clave;
+	}
+	public void setClave(final String clave) {
+		// TODO: Cuidado con la limpieza de datos para evitar datos NULOS
+		this.clave = clave;
+	}
+
+	private void setDefaultClave() {
+		// TODO: Obtener valor por defecto
+		// Lo más probable es que este valor esté en algún lugar o algún parámetro
+		var defaultValue = "N/A";
+		setClave(defaultValue);
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(final String nombre) {
+		// TODO: Cuidado con la limpieza de datos para evitar datos NULOS
+		this.nombre = nombre;
+	}
+	
+
+	public EstudianteEntity() {
+		setDefaultId();
+		setDefaultNombre();
+		setDefaultClave();
+	}
+	
+	public EstudianteEntity(final UUID id) {
+	    setId(id);
+	    setDefaultClave();
+	    setDefaultNombre();
+	}
+	
+	public EstudianteEntity(final UUID id, final String clave, final String nombre) {
+	    setId(id);
+	    setClave(clave);
+	    setNombre(nombre);
+	}
+
+	public void setDefaultNombre() {
+	    // TODO: Obtener valor por defecto
+	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
+	    var defaultValue = "";
+	    setNombre(defaultValue);
+	}
+
+}
