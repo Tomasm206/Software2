@@ -29,14 +29,6 @@ public class TipoIdentificacionEntity {
 		this.id = id;
 	}
 	
-	private void setDefaultId() {
-	    // TODO: Obtener valor por defecto
-	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
-	    UUID defaultValue = null;
-	    setId(defaultValue);
-	}
-
-	
 	public String getClave() {
 		return clave;
 	}
@@ -45,12 +37,6 @@ public class TipoIdentificacionEntity {
 		this.clave = clave;
 	}
 
-	private void setDefaultClave() {
-		// TODO: Obtener valor por defecto
-		// Lo más probable es que este valor esté en algún lugar o algún parámetro
-		var defaultValue = "";
-		setClave(defaultValue);
-	}
 	
 	public String getNombre() {
 		return nombre;
@@ -79,6 +65,13 @@ public class TipoIdentificacionEntity {
 	    setNombre(nombre);
 	}
 
+	private void setDefaultId() {
+		// TODO: Obtener valor por defecto
+		// Lo más probable es que este valor esté en algún lugar o algún parámetro
+		UUID defaultValue = UUID.randomUUID();
+		setId(defaultValue);
+	}
+	
 	public void setDefaultNombre() {
 	    // TODO: Obtener valor por defecto
 	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
@@ -86,4 +79,11 @@ public class TipoIdentificacionEntity {
 	    setNombre(defaultValue);
 	}
 
+	private void setDefaultClave() {
+		// TODO: Obtener valor por defecto
+		// Lo más probable es que este valor esté en algún lugar o algún parámetro
+		var defaultValue = "";
+		setClave(defaultValue);
+	}
+	
 }

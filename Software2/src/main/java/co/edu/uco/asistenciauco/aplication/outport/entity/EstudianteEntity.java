@@ -2,10 +2,13 @@ package co.edu.uco.asistenciauco.aplication.outport.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.asistenciauco.crosscutting.helpers.TextHelper;
 import co.edu.uco.asistenciauco.crosscutting.helpers.UUIDHelper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -18,11 +21,14 @@ public class EstudianteEntity {
 	@Id
 	@Column(name = "id")
 	private UUID id;
-	@Column(name = "clave")
-	private String clave;
-	@Column(name = "nombre")
-	private String nombre;
-	
+	@ManyToOne
+	@JoinColumn(name = "tipoIdentificacion")
+	private TipoIdentificacionEntity tipoIdentificacion;
+	@Column(name = "numeroIdentificacion")
+	private String numeroIdentificacion;
+	@Column(name = "nombresCompletos")
+	private String nombresCompletos;
+
 	public UUID getId() {
 		return id;
 	}
@@ -30,61 +36,56 @@ public class EstudianteEntity {
 		this.id = id;
 	}
 	
-	private void setDefaultId() {
-	    // TODO: Obtener valor por defecto
-	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
-	    UUID defaultValue = UUIDHelper.generate();
-	    setId(defaultValue);
-	}
 
-	
-	public String getClave() {
-		return clave;
+	public TipoIdentificacionEntity getTipoIdentificacion() {
+		return tipoIdentificacion;
 	}
-	public void setClave(final String clave) {
-		// TODO: Cuidado con la limpieza de datos para evitar datos NULOS
-		this.clave = clave;
+	public void setTipoIdentificacion(TipoIdentificacionEntity tipoIdentificacion) {
+		this.tipoIdentificacion = tipoIdentificacion;
 	}
-
-	private void setDefaultClave() {
-		// TODO: Obtener valor por defecto
-		// Lo más probable es que este valor esté en algún lugar o algún parámetro
-		var defaultValue = "N/A";
-		setClave(defaultValue);
+	public String getNumeroIdentificacion() {
+		return numeroIdentificacion;
+	}
+	public void setNumeroIdentificacion(String numeroIdentificacion) {
+		this.numeroIdentificacion = numeroIdentificacion;
+	}
+	public String getNombresCompletos() {
+		return nombresCompletos;
+	}
+	public void setNombresCompletos(String nombresCompletos) {
+		this.nombresCompletos = nombresCompletos;
 	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(final String nombre) {
-		// TODO: Cuidado con la limpieza de datos para evitar datos NULOS
-		this.nombre = nombre;
+	public EstudianteEntity(final UUID id, final TipoIdentificacionEntity tipoIdentificacion, final String numeroIdentificacion,
+			final String nombresCompletos) {
+		setId(id);
+		setTipoIdentificacion(tipoIdentificacion);
+		setNumeroIdentificacion(numeroIdentificacion);
+		setNombresCompletos(nombresCompletos);
 	}
 	
-
 	public EstudianteEntity() {
-		setDefaultId();
-		setDefaultNombre();
-		setDefaultClave();
-	}
+        setDefaultId();
+        setNumeroIdentificacion("");
+        setNombresCompletos("");
+        setTipoIdentificacion(new TipoIdentificacionEntity());
+    }
 	
-	public EstudianteEntity(final UUID id) {
-	    setId(id);
-	    setDefaultClave();
-	    setDefaultNombre();
+	 public EstudianteEntity(final UUID id) {
+	        setId(id);
 	}
-	
-	public EstudianteEntity(final UUID id, final String clave, final String nombre) {
-	    setId(id);
-	    setClave(clave);
-	    setNombre(nombre);
-	}
+
+	 private void setDefaultId() {
+		 // TODO: Obtener valor por defecto
+		 // Lo más probable es que este valor esté en algún lugar o algún parámetro
+		 UUID defaultValue = UUIDHelper.generate();
+		 setId(defaultValue);
+	 }
 
 	public void setDefaultNombre() {
 	    // TODO: Obtener valor por defecto
 	    // Lo más probable es que este valor esté en algún lugar o algún parámetro
-	    var defaultValue = "";
-	    setNombre(defaultValue);
+	    var defaultValue = TextHelper.getDefault("");
 	}
 
 }

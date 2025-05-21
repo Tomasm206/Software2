@@ -19,11 +19,11 @@ public class GrupoEntity {
     private UUID id;
 
     @ManyToOne
-    @Column(name = "profesor_id")
+    @Column(name = "profesor")
     private ProfesorEntity profesor;
 
     @ManyToOne
-    @Column(name = "materia_id")
+    @Column(name = "materia")
     private MateriaEntity materia;
 
     @Column(name = "cantidadEstudiantes")
@@ -63,6 +63,13 @@ public class GrupoEntity {
 
     public GrupoEntity() {
         setDefaultId();
+        setDefaultProfesor();
+        setDefaultMateria();
+        setDefaultCantidadEstudiantes();
+    }
+    
+    public GrupoEntity(final UUID id) {
+        setId(id);
         setDefaultProfesor();
         setDefaultMateria();
         setDefaultCantidadEstudiantes();

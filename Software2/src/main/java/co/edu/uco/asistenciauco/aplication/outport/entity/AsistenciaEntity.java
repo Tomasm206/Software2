@@ -23,12 +23,12 @@ public class AsistenciaEntity {
     private EstudianteGrupoEntity estudianteGrupo;
 
     @ManyToOne
-    @Column(name = "sesion_id")
+    @Column(name = "sesion")
     private SesionEntity sesion;
 
     @Column(name = "asistio")
     private boolean asistio;
-
+    
     public UUID getId() {
         return id;
     }
@@ -68,7 +68,7 @@ public class AsistenciaEntity {
         setDefaultAsistio();
     }
 
-    public AsistenciaEntity(UUID id, EstudianteGrupoEntity estudianteGrupo, SesionEntity sesion, boolean asistio) {
+    public AsistenciaEntity(final UUID id, final EstudianteGrupoEntity estudianteGrupo, final SesionEntity sesion, final boolean asistio) {
         setId(id);
         setEstudianteGrupo(estudianteGrupo);
         setSesion(sesion);

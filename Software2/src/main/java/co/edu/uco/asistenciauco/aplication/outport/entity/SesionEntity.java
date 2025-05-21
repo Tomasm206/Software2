@@ -1,6 +1,7 @@
 package co.edu.uco.asistenciauco.aplication.outport.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 import co.edu.uco.asistenciauco.crosscutting.helpers.ObjectHelper;
@@ -20,11 +21,11 @@ public class SesionEntity {
     private UUID id;
 
     @ManyToOne
-    @Column(name = "grupo_id")
+    @Column(name = "grupo")
     private GrupoEntity grupo;
 
     @Column(name = "fechaHora")
-    private LocalDateTime fechaHora;
+    private Date fechaHora;
 
     public UUID getId() {
         return id;
@@ -42,13 +43,13 @@ public class SesionEntity {
         this.grupo = ObjectHelper.getDefault(grupo, new GrupoEntity());
     }
 
-    public LocalDateTime getFechaHora() {
+    public Date getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora != null ? fechaHora : LocalDateTime.now();
-    }
+    public void setFechaHora(Date fechaHora) {
+		this.fechaHora = (Date) ObjectHelper.getDefault(fechaHora, new Date());
+	}
 
     public SesionEntity() {
         setDefaultId();
@@ -56,7 +57,7 @@ public class SesionEntity {
         setDefaultFechaHora();
     }
 
-    public SesionEntity(UUID id, GrupoEntity grupo, LocalDateTime fechaHora) {
+    public SesionEntity(UUID id, GrupoEntity grupo, Date fechaHora) {
         setId(id);
         setGrupo(grupo);
         setFechaHora(fechaHora);
@@ -71,6 +72,6 @@ public class SesionEntity {
     }
 
     private void setDefaultFechaHora() {
-        setFechaHora(LocalDateTime.now());
+        setFechaHora(new Date());
     }
 }

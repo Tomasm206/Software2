@@ -19,11 +19,11 @@ public class EstudianteGrupoEntity {
     private UUID id;
 
     @ManyToOne
-    @Column(name = "grupo_id")
+    @Column(name = "grupo")
     private GrupoEntity grupo;
 
     @ManyToOne
-    @Column(name = "estudiante_id")
+    @Column(name = "estudiante")
     private EstudianteEntity estudiante;
 
     public UUID getId() {
@@ -55,8 +55,14 @@ public class EstudianteGrupoEntity {
         setDefaultGrupo();
         setDefaultEstudiante();
     }
+    
+    public EstudianteGrupoEntity(final UUID id) {
+        setId(id);
+        setDefaultGrupo();
+        setDefaultEstudiante();
+    }
 
-    public EstudianteGrupoEntity(UUID id, GrupoEntity grupo, EstudianteEntity estudiante) {
+    public EstudianteGrupoEntity(final UUID id, final GrupoEntity grupo, final EstudianteEntity estudiante) {
         setId(id);
         setGrupo(grupo);
         setEstudiante(estudiante);

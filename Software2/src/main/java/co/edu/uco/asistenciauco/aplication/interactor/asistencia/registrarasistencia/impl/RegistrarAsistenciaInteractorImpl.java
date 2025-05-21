@@ -7,7 +7,6 @@ import co.edu.uco.asistenciauco.aplication.interactor.asistencia.registrarasiste
 import co.edu.uco.asistenciauco.aplication.interactor.asistencia.registrarasistencia.dto.response.RegistrarAsistenciaResponseDTO;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.RegistraarAsistenciaUseCase;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.domain.Asistencia;
-import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.impl.RegistrarAsistenciaUseCaseImpl;
 import jakarta.transaction.Transactional;
 
 @Service

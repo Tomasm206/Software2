@@ -5,11 +5,12 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import co.edu.uco.asistenciauco.aplication.outport.repository.AsistenciaRepository;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.RegistraarAsistenciaUseCase;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.domain.Asistencia;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.domain.Estudiante;
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistencia.domain.RegistrarAsistenciaResponseVO;
+import co.edu.uco.asistenciauco.aplication.usecase.asistencia.validator.ValidarQueExisteAsistenciaPorSesion;
+import co.edu.uco.asistenciauco.aplication.usecase.estudiante.validator.ValidarQueEstudianteEsteRegistradoGrupo;
 import co.edu.uco.asistenciauco.aplication.usecase.estudiante.validator.ValidarQueEstudianteExista;
 import co.edu.uco.asistenciauco.aplication.usecase.sesion.validator.ValidarQueSesionExista;
 
@@ -19,15 +20,18 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
     private ValidarQueEstudianteExista estudianteExiste;
     private ValidarQueSesionExista sesionExiste;
-    private AsistenciaRepository asistenciaRepository;
     private RegistrarAsistenciaResponseVO resultado;
+    private ValidarQueEstudianteEsteRegistradoGrupo estudianteGrupoValidador;
+    private ValidarQueExisteAsistenciaPorSesion existeAsistenciaPorSesion;
 
-    public RegistrarAsistenciaUseCaseImpl(AsistenciaRepository asistenciaRepository,
-                                          ValidarQueEstudianteExista estudianteExiste,
-                                          ValidarQueSesionExista sesionExiste) {
-        this.asistenciaRepository = asistenciaRepository;
+    public RegistrarAsistenciaUseCaseImpl(ValidarQueEstudianteExista estudianteExiste,
+                                          ValidarQueSesionExista sesionExiste,
+                                          ValidarQueEstudianteEsteRegistradoGrupo estudianteGrupoValidador,
+                                          ValidarQueExisteAsistenciaPorSesion existeAsistenciaPorSesion) {
         this.estudianteExiste = estudianteExiste;
         this.sesionExiste = sesionExiste;
+        this.estudianteGrupoValidador = estudianteGrupoValidador;
+        this.existeAsistenciaPorSesion = existeAsistenciaPorSesion;
         resultado = new RegistrarAsistenciaResponseVO();
     }
 	
@@ -46,7 +50,7 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 		// 3. El profesor que registra la asistencia debe existir
 		if (resultado.isValidacionCorrecta()) {
-					
+				
 		}
 
 
@@ -57,19 +61,16 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 
 		// 5. El profesor debe estar asignado al grupo
-
 		if (resultado.isValidacionCorrecta()) {
 			
 		}
 
 		// 6. No se puede tener una asistencia ya registrada para la sesion
 		if (resultado.isValidacionCorrecta()) {
-			
+		    resultado.agregarMensajes(existeAsistenciaPorSesion.validate(dominio.getSesion().getId()).getMensajes());
 		}
 
-
-		// 7: La asistencia se debe registrar entre los plazos establecidos
-				
+		// 7: La asistencia se debe registrar entre los plazos establecidos	
 		if (resultado.isValidacionCorrecta()) {
 			
 		}
@@ -93,7 +94,7 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 	        // 2. Validar que el estudiante esté registrado en un grupo
 	        if (registrarAsistenciaResponseEstudianteVO.isValidacionCorrecta()) {
-	        	
+	        	validarQueEstudianteEsteRegistradoGrupo(estudiante.getId());
 	        }
 
 	        // 3. Validar que el estudiante no tenga la materia cancelada por alguna novedad
@@ -113,8 +114,11 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 	
 	private void validarQueEstudianteExiste(UUID idEstudiante) {
-		
 		resultado.agregarMensajes(estudianteExiste.validate(idEstudiante).getMensajes());
+	}
+	
+	private void validarQueEstudianteEsteRegistradoGrupo(UUID idEstudiante) {
+		resultado.agregarMensajes(estudianteGrupoValidador.validate(idEstudiante).getMensajes());
 	}
 
 	private void registrarAsistenciaEstudiante(Estudiante estudiante) {

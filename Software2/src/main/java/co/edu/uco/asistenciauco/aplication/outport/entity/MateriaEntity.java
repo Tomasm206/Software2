@@ -64,10 +64,10 @@ public class MateriaEntity {
     }
 
     private void setDefaultClave() {
-        setClave(TextHelper.getDefault(null));
+        setClave(TextHelper.getDefault(""));
     }
 
     private void setDefaultNombre() {
-        setNombre(TextHelper.getDefault(null));
+        setNombre(TextHelper.getDefault(""));
     }
 }

@@ -25,5 +25,12 @@ public class AsistenciaController {
 		registrarAsistenciaInteractor.ejecutar(dto);
 		return "Asistencia registrada con éxito";
 	}
+	
+	@GetMapping("/listar")
+	public String listarAsistencias() {
+		// Aquí iría la lógica para listar las asistencias
+		// Por ejemplo, llamar a un servicio que maneje la lógica de negocio
+		return "Listando asistencias";
+	}
 
 }

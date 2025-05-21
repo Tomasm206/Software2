@@ -20,7 +20,7 @@ public class ProfesorEntity {
 	private UUID id;
 	
 	@ManyToOne
-    @Column(name = "tipoIdentificacion_id")
+    @Column(name = "tipoIdentificacion")
     private TipoIdentificacionEntity tipoIdentificacion;
 	
 	@Column(name = "numeroIdentificacion")
@@ -67,6 +67,13 @@ public class ProfesorEntity {
         setDefaultNumeroIdentificacion();
         setDefaultNombresCompletos();
 	}
+	
+	public ProfesorEntity(final UUID id) {
+        setId(id);
+        setDefaultTipoIdentificacion();
+        setDefaultNumeroIdentificacion();
+        setDefaultNombresCompletos();
+    }
 
 	public ProfesorEntity(UUID id, String numeroIdentificacion, String nombresCompletos) {
 		setId(id);
@@ -81,9 +88,8 @@ public class ProfesorEntity {
     }
 
     private void setDefaultTipoIdentificacion() {
-    	//TODO: Realizar objetos
-    	TipoIdentificacionEntity tipoIdentificacionEntity = new TipoIdentificacionEntity();
-        setTipoIdentificacion(tipoIdentificacionEntity);
+    	//TODO: Realizar objetos por defecto
+        setTipoIdentificacion(new TipoIdentificacionEntity());
     }
 
     private void setDefaultNumeroIdentificacion() {
