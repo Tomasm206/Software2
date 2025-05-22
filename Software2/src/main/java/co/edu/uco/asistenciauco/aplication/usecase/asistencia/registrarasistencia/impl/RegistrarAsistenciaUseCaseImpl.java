@@ -12,6 +12,7 @@ import co.edu.uco.asistenciauco.aplication.usecase.asistencia.registrarasistenci
 import co.edu.uco.asistenciauco.aplication.usecase.asistencia.validator.ValidarQueExisteAsistenciaPorSesion;
 import co.edu.uco.asistenciauco.aplication.usecase.estudiante.validator.ValidarQueEstudianteEsteRegistradoGrupo;
 import co.edu.uco.asistenciauco.aplication.usecase.estudiante.validator.ValidarQueEstudianteExista;
+import co.edu.uco.asistenciauco.aplication.usecase.profesor.validator.ValidarQueProfesorExista;
 import co.edu.uco.asistenciauco.aplication.usecase.sesion.validator.ValidarQueSesionExista;
 
 @Service
@@ -23,15 +24,18 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
     private RegistrarAsistenciaResponseVO resultado;
     private ValidarQueEstudianteEsteRegistradoGrupo estudianteGrupoValidador;
     private ValidarQueExisteAsistenciaPorSesion existeAsistenciaPorSesion;
+    private ValidarQueProfesorExista profesorValidador;
 
     public RegistrarAsistenciaUseCaseImpl(ValidarQueEstudianteExista estudianteExiste,
                                           ValidarQueSesionExista sesionExiste,
                                           ValidarQueEstudianteEsteRegistradoGrupo estudianteGrupoValidador,
-                                          ValidarQueExisteAsistenciaPorSesion existeAsistenciaPorSesion) {
+                                          ValidarQueExisteAsistenciaPorSesion existeAsistenciaPorSesion,
+                                          ValidarQueProfesorExista profesorValidador) {
         this.estudianteExiste = estudianteExiste;
         this.sesionExiste = sesionExiste;
         this.estudianteGrupoValidador = estudianteGrupoValidador;
         this.existeAsistenciaPorSesion = existeAsistenciaPorSesion;
+        this.profesorValidador = profesorValidador;
         resultado = new RegistrarAsistenciaResponseVO();
     }
 	
@@ -50,7 +54,7 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 		// 3. El profesor que registra la asistencia debe existir
 		if (resultado.isValidacionCorrecta()) {
-				
+			resultado.agregarMensajes(profesorValidador.validate(dominio.getProfesor().getId()).getMensajes());
 		}
 
 
@@ -123,6 +127,7 @@ public class RegistrarAsistenciaUseCaseImpl implements RegistraarAsistenciaUseCa
 
 	private void registrarAsistenciaEstudiante(Estudiante estudiante) {
 	    // 1. Registrar asistencia
+		
 		
 		// 2. Enviar la notificación de correo al estudiante porque no asistió
 	    if (!estudiante.isAsistio()) {
